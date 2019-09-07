@@ -22,6 +22,7 @@ class ShootApp extends StatelessWidget {
           primaryColor: const Color(0xFF2196f3),
           accentColor: const Color(0xFF2196f3),
           canvasColor: const Color(0xFFfafafa),
+          fontFamily: 'Genshin Gothic',
         ),
         home: new ShootHome(),
         routes: {
