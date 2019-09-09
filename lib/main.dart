@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'dart:async';
 import 'shots.dart';
 import 'result.dart';
 
@@ -56,21 +55,6 @@ class _ShootHomeState extends State<ShootHome> {
     _dirActual = this._dirInit;
   }
 
-  Route _createRoute() {
-    return PageRouteBuilder(
-        pageBuilder: (context, animation, secondaryAnimation) => ResultPage(),
-        transitionsBuilder: (context, animation, secondaryAnimation, child) {
-          var begin = Offset(0.0, 1.0);
-          var end = Offset.zero;
-          var tween = Tween(begin: begin, end: end);
-          var offsetAnimation = animation.drive(tween);
-          return SlideTransition(
-            position: offsetAnimation,
-            child: child,
-          );
-        });
-  }
-
   @override
   Widget build(BuildContext context) {
     // return Scaffoldでページを返す
@@ -86,7 +70,7 @@ class _ShootHomeState extends State<ShootHome> {
                 style: TextStyle(
                     fontSize: 32.0,
                     fontWeight: FontWeight.w600,
-                    color: Color(0xFF002b36))),
+                    color: const Color(0xFF002b36))),
             // 文字か画像
             Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -96,25 +80,33 @@ class _ShootHomeState extends State<ShootHome> {
                       style: TextStyle(
                           fontSize: 32.0,
                           fontWeight: FontWeight.w600,
-                          color: Color(0xFF002b36))),
+                          color: const Color(0xFF002b36))),
+                  SizedBox(width: 1),
                   Text('結果',
                       style: TextStyle(
                           fontSize: 32.0,
                           fontWeight: FontWeight.w600,
-                          color: Color(0xFF002b36))),
+                          color: const Color(0xFF002b36))),
                 ]),
             Row(
               //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
+                SizedBox(width: 10),
                 _buildScoreButtons(),
+                SizedBox(width: 10),
                 _buildActualScoreButtons(),
+                SizedBox(width: 10),
               ],
             ),
+            SizedBox(height: 5),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
+                SizedBox(width: 10),
                 _buildDirectionButtons(),
+                SizedBox(width: 10),
                 _buildActualDirectionButtons(),
+                SizedBox(width: 10),
               ],
             ),
             Row(
@@ -124,22 +116,23 @@ class _ShootHomeState extends State<ShootHome> {
                       style: TextStyle(
                           fontSize: 32.0,
                           fontWeight: FontWeight.w600,
-                          color: Color(0xFF002b36))),
+                          color: const Color(0xFF002b36))),
                   Text(_dirPredict,
                       style: TextStyle(
                           fontSize: 32.0,
                           fontWeight: FontWeight.w600,
-                          color: Color(0xFF002b36))),
+                          color: const Color(0xFF002b36))),
+                  SizedBox(width: 10),
                   Text('$_scoreActual',
                       style: TextStyle(
                           fontSize: 32.0,
                           fontWeight: FontWeight.w600,
-                          color: Color(0xFF002b36))),
+                          color: const Color(0xFF002b36))),
                   Text(_dirActual,
                       style: TextStyle(
                           fontSize: 32.0,
                           fontWeight: FontWeight.w600,
-                          color: Color(0xFF002b36))),
+                          color: const Color(0xFF002b36))),
                 ]),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -148,7 +141,7 @@ class _ShootHomeState extends State<ShootHome> {
                   icon: Icon(
                     Icons.add_circle_outline,
                     color: Colors.white,
-                    size: 40,
+                    size: 60,
                   ),
                   label: Text('つぎ!',
                       style: TextStyle(
@@ -161,7 +154,7 @@ class _ShootHomeState extends State<ShootHome> {
                   icon: Icon(
                     Icons.assessment,
                     color: Colors.white,
-                    size: 40,
+                    size: 60,
                   ),
                   label: Text('結果!',
                       style: TextStyle(
@@ -224,12 +217,13 @@ class _ShootHomeState extends State<ShootHome> {
   }
 
   Widget _buildScoreGridButton(int sc) {
+    // ボタン作成
     return RaisedButton(
       child: Text(
         "$sc",
         style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.w600),
       ),
-      color: Color(0xFF2aa198),
+      color: const Color(0xFF2aa198),
       shape: CircleBorder(
         side: BorderSide(
           color: Colors.black,
@@ -261,10 +255,10 @@ class _ShootHomeState extends State<ShootHome> {
         dir,
         style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.w600),
       ),
-      color: Color(0xFF859900),
+      color: const Color(0xFF859900),
       shape: CircleBorder(
         side: BorderSide(
-          color: Color(0xFF002b36),
+          color: const Color(0xFF002b36),
           width: 2.0,
           style: BorderStyle.solid,
         ),
@@ -299,10 +293,10 @@ class _ShootHomeState extends State<ShootHome> {
         "$sc",
         style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.w600),
       ),
-      color: Color(0xFF268bd2),
+      color: const Color(0xFF268bd2),
       shape: CircleBorder(
         side: BorderSide(
-          color: Color(0xFF002b36),
+          color: const Color(0xFF002b36),
           width: 2.0,
           style: BorderStyle.solid,
         ),
@@ -337,10 +331,10 @@ class _ShootHomeState extends State<ShootHome> {
         dir,
         style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.w600),
       ),
-      color: Color(0xFF6c71c4),
+      color: const Color(0xFF6c71c4),
       shape: CircleBorder(
         side: BorderSide(
-          color: Color(0xFF002b36),
+          color: const Color(0xFF002b36),
           width: 2.0,
           style: BorderStyle.solid,
         ),
