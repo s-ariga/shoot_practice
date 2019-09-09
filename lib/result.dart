@@ -22,8 +22,10 @@ class ResultPage extends StatelessWidget {
                     return ListTile(
                       title: Text(
                           "${index + 1}発目  ${shots.results[index].toString()}",
-                          style:
-                          TextStyle(fontSize: 16.0, fontWeight: FontWeight.w400)),
+                          style: TextStyle(
+                              fontSize: 18.0,
+                              fontWeight: FontWeight.w400,
+                              color: Color(0xFF002b36))),
                     );
                   }),
             ),
@@ -33,19 +35,27 @@ class ResultPage extends StatelessWidget {
                     children: <Widget>[
                   new Text(
                       '点数的中 ${(shots.scoreAtari() * 100).toStringAsFixed(1)}%',
-                      style:
-                      TextStyle(fontSize: 32.0, fontWeight: FontWeight.w600)),
+                      style: TextStyle(
+                          fontSize: 32.0,
+                          fontWeight: FontWeight.w600,
+                          color: Color(0xFF002b36))),
                   new Text(
                       '方向的中 ${(shots.dirAtari() * 100).toStringAsFixed(1)}%',
-                      style:
-                      TextStyle(fontSize: 32.0, fontWeight: FontWeight.w600)),
-                  new Text('合計 ${shots.totalScore()}',
-                      style:
-                      TextStyle(fontSize: 32.0, fontWeight: FontWeight.w600)),
+                      style: TextStyle(
+                          fontSize: 32.0,
+                          fontWeight: FontWeight.w600,
+                          color: Color(0xFF002b36))),
+                  new Text('合計点 ${shots.totalScore()}',
+                      style: TextStyle(
+                          fontSize: 32.0,
+                          fontWeight: FontWeight.w600,
+                          color: Color(0xFF002b36))),
                   new Text(
-                      '平均 ${(shots.totalScore() / shots.results.length).toStringAsFixed(1)}',
-                      style:
-                      TextStyle(fontSize: 32.0, fontWeight: FontWeight.w600))
+                      '平均点 ${(shots.totalScore() / shots.results.length).toStringAsFixed(1)}',
+                      style: TextStyle(
+                          fontSize: 32.0,
+                          fontWeight: FontWeight.w600,
+                          color: Color(0xFF002b36)))
                 ])),
           ],
         ));

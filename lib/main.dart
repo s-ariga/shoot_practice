@@ -21,7 +21,7 @@ class ShootApp extends StatelessWidget {
           primarySwatch: Colors.blue,
           primaryColor: const Color(0xFF2196f3),
           accentColor: const Color(0xFF2196f3),
-          canvasColor: const Color(0xFFfafafa),
+          canvasColor: const Color(0xFFfdf6e3),
           fontFamily: 'Genshin Gothic',
         ),
         home: new ShootHome(),
@@ -83,7 +83,10 @@ class _ShootHomeState extends State<ShootHome> {
           children: <Widget>[
             // 丸数字
             Text('${_shots.shots + 1}発目',
-                style: TextStyle(fontSize: 32.0, fontWeight: FontWeight.w600)),
+                style: TextStyle(
+                    fontSize: 32.0,
+                    fontWeight: FontWeight.w600,
+                    color: Color(0xFF002b36))),
             // 文字か画像
             Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -91,34 +94,53 @@ class _ShootHomeState extends State<ShootHome> {
                 children: <Widget>[
                   Text('予告',
                       style: TextStyle(
-                          fontSize: 32.0, fontWeight: FontWeight.w600)),
+                          fontSize: 32.0,
+                          fontWeight: FontWeight.w600,
+                          color: Color(0xFF002b36))),
                   Text('結果',
                       style: TextStyle(
-                          fontSize: 32.0, fontWeight: FontWeight.w600)),
+                          fontSize: 32.0,
+                          fontWeight: FontWeight.w600,
+                          color: Color(0xFF002b36))),
                 ]),
+            Row(
+              //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                _buildScoreButtons(),
+                _buildActualScoreButtons(),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                _buildDirectionButtons(),
+                _buildActualDirectionButtons(),
+              ],
+            ),
             Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
-                  _buildScoreButtons(),
-                  _buildDirectionButtons(),
-                  _buildActualScoreButtons(),
-                  _buildActualDirectionButtons(),
+                  Text('$_scorePredict',
+                      style: TextStyle(
+                          fontSize: 32.0,
+                          fontWeight: FontWeight.w600,
+                          color: Color(0xFF002b36))),
+                  Text(_dirPredict,
+                      style: TextStyle(
+                          fontSize: 32.0,
+                          fontWeight: FontWeight.w600,
+                          color: Color(0xFF002b36))),
+                  Text('$_scoreActual',
+                      style: TextStyle(
+                          fontSize: 32.0,
+                          fontWeight: FontWeight.w600,
+                          color: Color(0xFF002b36))),
+                  Text(_dirActual,
+                      style: TextStyle(
+                          fontSize: 32.0,
+                          fontWeight: FontWeight.w600,
+                          color: Color(0xFF002b36))),
                 ]),
-            Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: <
-                Widget>[
-              Text('$_scorePredict',
-                  style:
-                      TextStyle(fontSize: 32.0, fontWeight: FontWeight.w600)),
-              Text(_dirPredict,
-                  style:
-                      TextStyle(fontSize: 32.0, fontWeight: FontWeight.w600)),
-              Text('$_scoreActual',
-                  style:
-                      TextStyle(fontSize: 32.0, fontWeight: FontWeight.w600)),
-              Text(_dirActual,
-                  style:
-                      TextStyle(fontSize: 32.0, fontWeight: FontWeight.w600)),
-            ]),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
@@ -126,9 +148,11 @@ class _ShootHomeState extends State<ShootHome> {
                   icon: Icon(
                     Icons.add_circle_outline,
                     color: Colors.white,
+                    size: 40,
                   ),
-                  label: Text('つぎ!',style:
-                  TextStyle(fontSize: 24.0, fontWeight: FontWeight.w600)),
+                  label: Text('つぎ!',
+                      style: TextStyle(
+                          fontSize: 24.0, fontWeight: FontWeight.w600)),
                   color: Colors.green,
                   textColor: Colors.white,
                   onPressed: _nextPressed,
@@ -137,9 +161,11 @@ class _ShootHomeState extends State<ShootHome> {
                   icon: Icon(
                     Icons.assessment,
                     color: Colors.white,
+                    size: 40,
                   ),
-                  label: Text('結果!',style:
-                  TextStyle(fontSize: 24.0, fontWeight: FontWeight.w600)),
+                  label: Text('結果!',
+                      style: TextStyle(
+                          fontSize: 24.0, fontWeight: FontWeight.w600)),
                   color: Colors.red,
                   textColor: Colors.white,
                   onPressed: () {
@@ -158,7 +184,7 @@ class _ShootHomeState extends State<ShootHome> {
   }
 
   void _nextPressed() {
-    if (_scoreActual != 0 && _dirActual != "?") {
+    if (_scoreActual != _scoreInit && _dirActual != _dirInit) {
       setState(() {
         _shots.shots++;
         _shots.pushResult(_scorePredict, _dirPredict, _scoreActual, _dirActual);
@@ -170,114 +196,158 @@ class _ShootHomeState extends State<ShootHome> {
     }
   }
 
-  static const score = [10, 9, 8, 7, 6];
-  static const direction = ['↑', '↗', '→', '↘', '↓', '↙', '←', '↖'];
+  static const score = [10, 9, 8, 7, 6, 5];
+  static const direction = ['↖', '↑', '↗', '←', '・', '→', '↙', '↓', '↘'];
 
   Widget _buildScoreButtons() {
-    return Column(
-      children: _buildScoreButton(),
+    return Container(
+      child: _buildScoreGridButtons(),
     );
-  }
-
-  List<Widget> _buildScoreButton() {
-    List<Widget> buttons = [];
-    for (var s in score) {
-      buttons.add(RaisedButton(
-        child: Text("$s"),
-        color: Colors.white,
-        shape: CircleBorder(
-          side: BorderSide(
-            color: Colors.black,
-            width: 1.0,
-            style: BorderStyle.solid,
-          ),
-        ),
-        onPressed: () {
-          setState(() => _scorePredict = s);
-        },
-      ));
-    }
-    return buttons;
   }
 
   Widget _buildDirectionButtons() {
-    return Column(
-      children: _buildDirectionButton(),
+    return Container(
+      child: _buildDirectionGridButtons(),
     );
   }
 
-  List<Widget> _buildDirectionButton() {
-    List<Widget> buttons = [];
-    for (var dir in direction) {
-      buttons.add(RaisedButton(
-        child: Text(dir),
-        color: Colors.white,
-        shape: CircleBorder(
-          side: BorderSide(
-            color: Colors.black,
-            width: 1.0,
-            style: BorderStyle.solid,
-          ),
+  Widget _buildScoreGridButtons() {
+    // GridViewで方向を並べて表示する
+    return Expanded(
+        child: GridView.count(
+            scrollDirection: Axis.vertical,
+            shrinkWrap: true,
+            crossAxisCount: 3,
+            children: List.generate(score.length, (index) {
+              return _buildScoreGridButton(score[index]);
+            })));
+  }
+
+  Widget _buildScoreGridButton(int sc) {
+    return RaisedButton(
+      child: Text(
+        "$sc",
+        style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.w600),
+      ),
+      color: Color(0xFF2aa198),
+      shape: CircleBorder(
+        side: BorderSide(
+          color: Colors.black,
+          width: 2.0,
+          style: BorderStyle.solid,
         ),
-        onPressed: () {
-          setState(() => _dirPredict = dir);
-        },
-      ));
-    }
-    return buttons;
+      ),
+      onPressed: () {
+        setState(() => _scorePredict = sc);
+      },
+    );
+  }
+
+  Widget _buildDirectionGridButtons() {
+    // GridViewで方向を並べて表示する
+    return Expanded(
+        child: GridView.count(
+            scrollDirection: Axis.vertical,
+            shrinkWrap: true,
+            crossAxisCount: 3,
+            children: List.generate(direction.length, (index) {
+              return _buildDirectionGridButton(direction[index]);
+            })));
+  }
+
+  Widget _buildDirectionGridButton(String dir) {
+    return RaisedButton(
+      child: Text(
+        dir,
+        style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.w600),
+      ),
+      color: Color(0xFF859900),
+      shape: CircleBorder(
+        side: BorderSide(
+          color: Color(0xFF002b36),
+          width: 2.0,
+          style: BorderStyle.solid,
+        ),
+      ),
+      onPressed: () {
+        setState(() => _dirPredict = dir);
+      },
+    );
   }
 
   Widget _buildActualScoreButtons() {
-    return Column(
-      children: _buildActualScoreButton(),
+    return Container(
+      child: _buildActualScoreGridButtons(),
     );
   }
 
-  List<Widget> _buildActualScoreButton() {
-    List<Widget> buttons = [];
-    for (var s in score) {
-      buttons.add(RaisedButton(
-        child: Text("$s"),
-        color: Colors.white,
-        shape: CircleBorder(
-          side: BorderSide(
-            color: Colors.black,
-            width: 1.0,
-            style: BorderStyle.solid,
-          ),
+  Widget _buildActualScoreGridButtons() {
+    // GridViewで方向を並べて表示する
+    return Expanded(
+        child: GridView.count(
+            scrollDirection: Axis.vertical,
+            shrinkWrap: true,
+            crossAxisCount: 3,
+            children: List.generate(score.length, (index) {
+              return _buildActualScoreGridButton(score[index]);
+            })));
+  }
+
+  Widget _buildActualScoreGridButton(int sc) {
+    return RaisedButton(
+      child: Text(
+        "$sc",
+        style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.w600),
+      ),
+      color: Color(0xFF268bd2),
+      shape: CircleBorder(
+        side: BorderSide(
+          color: Color(0xFF002b36),
+          width: 2.0,
+          style: BorderStyle.solid,
         ),
-        onPressed: () {
-          setState(() => _scoreActual = s);
-        },
-      ));
-    }
-    return buttons;
+      ),
+      onPressed: () {
+        setState(() => _scoreActual = sc);
+      },
+    );
   }
 
   Widget _buildActualDirectionButtons() {
-    return Column(
-      children: _buildActualDirectionButton(),
+    return Container(
+      child: _buildActualDirectionGridButtons(),
     );
   }
 
-  List<Widget> _buildActualDirectionButton() {
-    List<Widget> buttons = [];
-    for (var dir in direction) {
-      buttons.add(RaisedButton(
-        child: Text(dir),
-        color: Colors.white,
-        shape: CircleBorder(
-          side: BorderSide(
-            color: Colors.black,
-            width: 1.0,
-            style: BorderStyle.solid,
-          ),
+  Widget _buildActualDirectionGridButtons() {
+    // GridViewで方向を並べて表示する
+    return Expanded(
+        child: GridView.count(
+            scrollDirection: Axis.vertical,
+            shrinkWrap: true,
+            crossAxisCount: 3,
+            children: List.generate(direction.length, (index) {
+              return _buildActualDirectionGridButton(direction[index]);
+            })));
+  }
+
+  Widget _buildActualDirectionGridButton(String dir) {
+    return RaisedButton(
+      child: Text(
+        dir,
+        style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.w600),
+      ),
+      color: Color(0xFF6c71c4),
+      shape: CircleBorder(
+        side: BorderSide(
+          color: Color(0xFF002b36),
+          width: 2.0,
+          style: BorderStyle.solid,
         ),
-        onPressed: () {
-          setState(() => _dirActual = dir);
-        },
-      ));
-    }
-    return buttons;
+      ),
+      onPressed: () {
+        setState(() => _dirActual = dir);
+      },
+    );
   }
 }
