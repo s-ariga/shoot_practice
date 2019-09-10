@@ -48,6 +48,20 @@ class Shot{
 
   final dirString = ["↑","↗","→","↘","↓","↙","←","↖"];
 
+  bool scoreHit() {
+    if(scorePredict == scoreActual) {
+      return true;
+    }
+    return false;
+  }
+
+  bool dirHit() {
+    if(dirPredict == dirActual) {
+      return true;
+    }
+    return false;
+  }
+
 
   String toString() {
     // とりあえず、文字にして返す

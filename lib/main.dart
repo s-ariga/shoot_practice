@@ -44,6 +44,9 @@ class _ShootHomeState extends State<ShootHome> {
   int _scoreActual;
   String _dirActual;
 
+  bool _scoreHit = false;
+  bool _dirHit = false;
+
   final int _scoreInit = 0;
   final String _dirInit = "＊";
 
@@ -53,11 +56,14 @@ class _ShootHomeState extends State<ShootHome> {
     _dirPredict = this._dirInit;
     _scoreActual = this._scoreInit;
     _dirActual = this._dirInit;
+    _scoreHit = false;
+    _dirHit = false;
   }
 
   @override
   Widget build(BuildContext context) {
     // return Scaffoldでページを返す
+
     return new Scaffold(
       appBar: new AppBar(
         title: new Text('予告射撃'),
@@ -127,12 +133,12 @@ class _ShootHomeState extends State<ShootHome> {
                       style: TextStyle(
                           fontSize: 32.0,
                           fontWeight: FontWeight.w600,
-                          color: const Color(0xFF002b36))),
+                          color: this._scoreHit ? Color(0xFFcb4b16) : Color(0xFF002b36))),
                   Text(_dirActual,
                       style: TextStyle(
                           fontSize: 32.0,
                           fontWeight: FontWeight.w600,
-                          color: const Color(0xFF002b36))),
+                          color: this._dirHit ? Color(0xffcb4b16) : Color(0xFF002b36))),
                 ]),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -185,6 +191,8 @@ class _ShootHomeState extends State<ShootHome> {
         _dirPredict = this._dirInit;
         _scoreActual = this._scoreInit;
         _dirActual = this._dirInit;
+        _scoreHit = false;
+        _dirHit = false;
       });
     }
   }
@@ -302,7 +310,10 @@ class _ShootHomeState extends State<ShootHome> {
         ),
       ),
       onPressed: () {
-        setState(() => _scoreActual = sc);
+        setState(() {
+          _scoreActual = sc;
+          if(_scoreActual == _scorePredict) {_scoreHit = true;}
+        });
       },
     );
   }
@@ -340,7 +351,10 @@ class _ShootHomeState extends State<ShootHome> {
         ),
       ),
       onPressed: () {
-        setState(() => _dirActual = dir);
+        setState(() {
+          _dirActual = dir;
+          if(_dirActual == _dirPredict) {_dirHit = true;}
+        });
       },
     );
   }
