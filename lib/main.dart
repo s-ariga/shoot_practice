@@ -95,6 +95,35 @@ class _ShootHomeState extends State<ShootHome> {
                           color: const Color(0xFF002b36))),
                 ]),
             Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  Text('$_scorePredict',
+                      style: TextStyle(
+                          fontSize: 32.0,
+                          fontWeight: FontWeight.w600,
+                          color: const Color(0xFF002b36))),
+                  Text(_dirPredict,
+                      style: TextStyle(
+                          fontSize: 32.0,
+                          fontWeight: FontWeight.w600,
+                          color: const Color(0xFF002b36))),
+                  SizedBox(width: 10),
+                  Text('$_scoreActual',
+                      style: TextStyle(
+                          fontSize: 32.0,
+                          fontWeight: FontWeight.w600,
+                          color: this._scoreHit
+                              ? Color(0xFFcb4b16)
+                              : Color(0xFF002b36))),
+                  Text(_dirActual,
+                      style: TextStyle(
+                          fontSize: 32.0,
+                          fontWeight: FontWeight.w600,
+                          color: this._dirHit
+                              ? Color(0xffcb4b16)
+                              : Color(0xFF002b36))),
+                ]),
+            Row(
               //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
                 SizedBox(width: 10),
@@ -115,31 +144,7 @@ class _ShootHomeState extends State<ShootHome> {
                 SizedBox(width: 10),
               ],
             ),
-            Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  Text('$_scorePredict',
-                      style: TextStyle(
-                          fontSize: 32.0,
-                          fontWeight: FontWeight.w600,
-                          color: const Color(0xFF002b36))),
-                  Text(_dirPredict,
-                      style: TextStyle(
-                          fontSize: 32.0,
-                          fontWeight: FontWeight.w600,
-                          color: const Color(0xFF002b36))),
-                  SizedBox(width: 10),
-                  Text('$_scoreActual',
-                      style: TextStyle(
-                          fontSize: 32.0,
-                          fontWeight: FontWeight.w600,
-                          color: this._scoreHit ? Color(0xFFcb4b16) : Color(0xFF002b36))),
-                  Text(_dirActual,
-                      style: TextStyle(
-                          fontSize: 32.0,
-                          fontWeight: FontWeight.w600,
-                          color: this._dirHit ? Color(0xffcb4b16) : Color(0xFF002b36))),
-                ]),
+            SizedBox(height:10),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
@@ -312,7 +317,9 @@ class _ShootHomeState extends State<ShootHome> {
       onPressed: () {
         setState(() {
           _scoreActual = sc;
-          if(_scoreActual == _scorePredict) {_scoreHit = true;}
+          if (_scoreActual == _scorePredict) {
+            _scoreHit = true;
+          }
         });
       },
     );
@@ -353,7 +360,9 @@ class _ShootHomeState extends State<ShootHome> {
       onPressed: () {
         setState(() {
           _dirActual = dir;
-          if(_dirActual == _dirPredict) {_dirHit = true;}
+          if (_dirActual == _dirPredict) {
+            _dirHit = true;
+          }
         });
       },
     );
