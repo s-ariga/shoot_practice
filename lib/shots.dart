@@ -1,3 +1,8 @@
+// Copyright (c) 2019 Seiichi Ariga
+//
+// This software is released under the MIT License.
+// https://opensource.org/licenses/MIT
+
 // 成績データクラス
 class Shots{
   int shots;
@@ -62,11 +67,9 @@ class Shot{
     return false;
   }
 
-
   String toString() {
     // とりあえず、文字にして返す
     return "$scorePredict $dirPredict $scoreActual $dirActual";
-
   }
 
   String dirToString(int dir) {

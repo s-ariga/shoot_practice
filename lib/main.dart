@@ -1,3 +1,8 @@
+// Copyright (c) 2019 Seiichi Ariga
+//
+// This software is released under the MIT License.
+// https://opensource.org/licenses/MIT
+
 import 'package:flutter/material.dart';
 import 'shots.dart';
 import 'result.dart';
@@ -78,6 +83,7 @@ class _ShootHomeState extends State<ShootHome> {
                     fontWeight: FontWeight.w600,
                     color: const Color(0xFF002b36))),
             // 文字か画像
+            // ボタンを生成
             Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 crossAxisAlignment: CrossAxisAlignment.center,

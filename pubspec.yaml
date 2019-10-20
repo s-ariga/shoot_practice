@@ -74,3 +74,4 @@ flutter:
     - family: Genshin Gothic
       fonts:
         - asset: fonts/GenShinGothic-P-Regular.ttf
+          weight: 700

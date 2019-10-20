@@ -1,3 +1,8 @@
+// Copyright (c) 2019 Seiichi Ariga
+//
+// This software is released under the MIT License.
+// https://opensource.org/licenses/MIT
+
 // 結果表示ページ
 import 'package:flutter/material.dart';
 import 'shots.dart';
